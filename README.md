@@ -17,7 +17,7 @@ npm run build
 npm run preview
 ```
 
-开发地址为 http://127.0.0.1:5173/portfolio-pdf/，生产预览为 http://127.0.0.1:4173/portfolio-pdf/。构建输出到 dist/，base 始终为 /portfolio-pdf/。
+开发地址为 http://127.0.0.1:5173/portfolio-pdf/，生产预览为 http://127.0.0.1:4173/portfolio-pdf/。构建输出到 dist/，base 始终为 /portfolio-pdf/。生产构建通过 src/entry-server.tsx 预渲染首页 HTML，再由 React 接管交互；开发模式仍由客户端渲染，无需运行服务端。
 
 ## 内容维护
 

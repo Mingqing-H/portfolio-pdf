@@ -40,6 +40,7 @@
 - 正式发布使用 .github/workflows/pages.yml：main 更新触发构建并发布 dist/；远端是否已切换以deployment-status.md为准。
 - Vite 构建输出 dist/，远端 Pages 必须设为 GitHub Actions。保留 docs/index.html 作为旧版回退入口，不再将源码目录直接部署。
 - 构建与资源路径必须适配现有项目子路径 /portfolio-pdf/。
+- 构建阶段由 src/entry-server.tsx 生成静态首页 HTML，客户端 hydrateRoot 接管；首轮状态须与服务端一致，window、URL hash 和媒体查询在 effect 内读取。无需线上 Node 服务。
 - 保留分享入口：https://mingqing-h.github.io/portfolio-pdf/ 。
 - 保留 PDF 直链：https://mingqing-h.github.io/portfolio-pdf/portfolio.pdf 。
 - 如后续调整 PDF 的源文件位置，发布结果仍须在上述 PDF 地址提供文件。

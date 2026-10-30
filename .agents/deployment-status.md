@@ -1,18 +1,31 @@
 # 部署状态
 
-最后更新：2026-10-30。新版待发布；最新实际状态见下方。
+最后更新：2026-10-30。新版已上线，功能验收通过；线上性能限制见下方。
 
 
-## 当前状态（2026-10-30，发布准备）
+## 当前状态（2026-10-30，已上线并完成在线复测）
 
-- 网页升级与本地验收完成，准备迁移 GitHub Pages 为 Actions 构建发布；此段写入时尚未推送或切换远端。
-- 11 件案例、三件精选、可筛选档案、个人实验区、独立案例链接、按需演示视频与分享封面已实现。
-- 本地构建通过；JS gzip 83.55KB / CSS gzip 6.49KB。Chrome响应式、全部案例、键盘焦点、视频与PDF一致性通过；详见homepage-design.md。
-- 2026-10-30只读核验远端仍为legacy / main / docs，旧PDF页面保持built；本地与origin/main基线均为bc9bef4。
-- 新工作流为.github/workflows/pages.yml，Node24执行npm ci和build，仅dist进入Pages。
-- 保留入口：https://mingqing-h.github.io/portfolio-pdf/ ；PDF：https://mingqing-h.github.io/portfolio-pdf/portfolio.pdf 。
-- 回退路径：保留docs/index.html与docs/portfolio.pdf，可将Pages改回main的/docs；无需恢复或覆盖PDF原文件。
-- 未验证：新版线上页面、线上性能、真实微信、Safari/iOS、无代理国内网络。实际发布后更新此段。
+- GitHub Pages 已从 legacy / main / docs 切换为 GitHub Actions。正式网站：https://mingqing-h.github.io/portfolio-pdf/ ；原 PDF：https://mingqing-h.github.io/portfolio-pdf/portfolio.pdf 。两者均返回 HTTP 200。
+- 当前线上代码提交：`e020f852b1fcebca8a98169729aa519a634daa1f`。发布工作流 [41001286301](https://github.com/Mingqing-H/portfolio-pdf/actions/runs/41001286301) 的 build、deploy 均成功，部署完成于 2026-10-30 04:09:39 UTC（北京时间 12:09:39）。后续仅维护文档的提交不触发重新发布。
+- 首轮完整版本提交 `00672ed`，工作流 [40999722657](https://github.com/Mingqing-H/portfolio-pdf/actions/runs/40999722657) 成功；第二轮加入构建期静态预渲染、客户端 hydration 和无脚本 PDF 降级。
+- 检索 48 个仓库后选取 11 件有来源支撑的案例，形成三件精选、可筛选档案、两个个人实验、独立案例链接、真实短版视频和分享封面。保留 V2 曲面展台与原 PDF。
+- 工作流 `.github/workflows/pages.yml` 使用 Node.js 24，执行 npm ci / build，仅发布 dist。静态 HTML 无需线上 Node 服务；项目内没有新增运行时依赖。
+
+### 当前验证结果（2026-10-30）
+
+- TypeScript 与生产构建通过；JS gzip 83.77KB、CSS gzip 6.53KB。静态响应包含标题、11 件档案和 PDF 链接，无脚本时隐藏依赖交互的展台并显示 PDF 入口。
+- 本地 Chrome 在 320、390、768、820、1024、1366、1920px 宽度无横向溢出；全部案例、分类筛选、直接访问/刷新、Tab/Esc、焦点恢复、拖动误触保护、离屏停止及减少动态效果通过。预渲染没有 hydration 或运行时错误。
+- 正式网址 Chrome 桌面与390px移动模拟通过：11 个案例、筛选2/11项、独立链接和刷新；无资源404、无运行时错误。视频点击前0请求，点击后成功播放16秒1280×676片段。
+- PDF 2,417,003字节，Content-Type正确，SHA256仍为 `94851e3f0c75ce3e42266b989fa1e9fac49ca20b06a834ab4ffda1fad1af9d18`，Range返回206；原文件和地址未变。
+- 本地生产预览样本：LCP720ms、CLS0.00075、资源传输628,104字节，动画帧间隔中位数16.7ms / P95 17ms。仅代表本机，不代替线上数据。
+- 线上最终三次独立浏览器上下文冷启动：LCP **9.152s / 4.300s / 2.944s**，TTFB **5.730s / 2.948s / 2.472s**，CLS均低于0.001。每次资源636,301字节，加HTML4,692字节，合计约641KB；首屏无PDF或视频请求。体积与CLS预算达标，**LCP尚未稳定达到2.5s目标**。同版本最初复测另有10.268s样本；不能隐藏网络波动或宣称性能完全达标。
+- 内置浏览器控制不可用，采用已安装 Chrome 的 Playwright 实例；正式站点截图与验证输出保存在系统临时目录 portfolio-qa-20261030。
+
+### 遗留验证与回退
+
+- 真实 iOS/Safari、微信、无代理国内网络尚未验证；当前环境网络首字节延迟已明显影响在线首屏。后续应在目标设备/网络复测，并在有托管授权时评估国内访问加速。未增加额外托管服务或修改域名。
+- 作品集中的公开演示链接已核验；外部项目后端、企业授权与模型服务不属于本站功能保证。原 PDF 是保留的历史版本，新案例在网页阅读。
+- 保留 docs/index.html 与 docs/portfolio.pdf，可将 Pages 改回 main 的 /docs 回退；当前发布不使用此旧入口。
 
 ## 维护要求
 
