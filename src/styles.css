@@ -29,7 +29,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--green); outline
 .hero { position: relative; overflow: hidden; padding-top: 40px; }
 .hero-copy { text-align: center; position: relative; z-index: 1; }
 .hero h1 { margin: 0; font-size: clamp(52px,6.1vw,88px); line-height: 1.18; letter-spacing: -.055em; font-weight: 700; }
-.hero h1 span { display: block; animation: reveal .75s both; }
+.hero h1 span { display: block; animation: title-enter .75s both; }
 .hero h1 span + span { color: var(--green); animation-delay: .1s; }
 .hero-copy > p { margin: 30px 20px 0; font-size: 18px; color: var(--muted); letter-spacing: .02em; animation: reveal .75s .2s both; }
 .hand-note { position: absolute; right: 6%; top: 275px; color: var(--green); z-index: 1; pointer-events: none; transform: rotate(-9deg); }
@@ -70,6 +70,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--green); outline
 .footer > a:last-child { display: flex; gap: 9px; align-items: center; }
 .footer .monogram { font-size: 30px; }
 @keyframes rail-enter { from { opacity: 0; transform: translateY(60px); filter: blur(4px); } to { opacity: 1; transform: translateY(0); filter: blur(0); } }
+@keyframes title-enter { from { transform: translateY(18px); } to { transform: translateY(0); } }
 @keyframes reveal { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
 @supports not (corner-shape: superellipse(2)) {
@@ -132,3 +133,4 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--green); outline
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+

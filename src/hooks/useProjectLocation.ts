@@ -4,9 +4,10 @@ import { projects, type Project } from '../content/projects';
 const fromLocation = () => projects.find(item => window.location.hash === `#project=${item.slug}`) ?? null;
 
 export function useProjectLocation() {
-  const [project, setProject] = useState<Project | null>(fromLocation);
+  const [project, setProject] = useState<Project | null>(null);
   useEffect(() => {
     const update = () => setProject(fromLocation());
+    update();
     window.addEventListener('hashchange', update);
     window.addEventListener('popstate', update);
     return () => {
@@ -29,3 +30,4 @@ export function useProjectLocation() {
   };
   return { project, selectProject, closeProject };
 }
+

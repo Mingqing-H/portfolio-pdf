@@ -162,3 +162,4 @@
 @supports not (corner-shape: superellipse(2)) {
   .squircle, .scenic-phones img, .desktop-composition img { border-radius: 0; }
 }
+.rail-viewport:not([data-ready]) .project-card { visibility: hidden; }

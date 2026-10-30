@@ -15,11 +15,12 @@ export function WorkRail({ onSelect, suspended }: { onSelect: (project: Project)
   const pointerActive = useRef(false);
   const actions = useRef({ step: (_direction: number) => {}, focus: (_index: number) => {} });
   const [paused, setPaused] = useState(false);
-  const [reduced, setReduced] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  const [reduced, setReduced] = useState(false);
 
   useEffect(() => {
     const query = window.matchMedia('(prefers-reduced-motion: reduce)');
     const change = () => setReduced(query.matches);
+    change();
     query.addEventListener('change', change);
     return () => query.removeEventListener('change', change);
   }, []);
@@ -45,6 +46,7 @@ export function WorkRail({ onSelect, suspended }: { onSelect: (project: Project)
       return ((value + total / 2) % total + total) % total - total / 2;
     };
     const paint = () => {
+      element.dataset.ready = 'true';
       cards.current.forEach((card, index) => {
         if (!card) return;
         const offset = wrap((index - 3) * pitch + position.current);
@@ -178,3 +180,4 @@ export function WorkRail({ onSelect, suspended }: { onSelect: (project: Project)
     </div>
   </div>;
 }
+
