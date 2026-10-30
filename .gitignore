@@ -1,2 +1,5 @@
-research/
 .local/
+
+node_modules/
+dist/
+docs/research-*.md
